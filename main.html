@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio - Professional Management</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+        <div class="logo-text">
+          <h2>PORTIFY</h2>
+          <p>Portfolio Hub</p>
+        </div>
+      </div>
+      <button class="sidebar-close" id="sidebar-close">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#links" class="nav-item active">
+        <i data-lucide="link"></i>
+        <span>Social Links</span>
+      </a>
+      <a href="#education" class="nav-item">
+        <i data-lucide="graduation-cap"></i>
+        <span>Education</span>
+      </a>
+      <a href="#projects" class="nav-item">
+        <i data-lucide="folder"></i>
+        <span>Projects</span>
+      </a>
+      <a href="#resumes" class="nav-item">
+        <i data-lucide="file-text"></i>
+        <span>Resumes</span>
+      </a>
+      <a href="#certificates" class="nav-item">
+        <i data-lucide="award"></i>
+        <span>Certificates</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout" id="logout-btn">
+        <i data-lucide="log-out"></i>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <button class="menu-toggle" id="menu-toggle">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="header-content">
+        <div class="header-left">
+          <h1 class="page-title">Portfolio Management</h1>
+          <p class="page-subtitle">Manage your professional presence</p>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-icon" id="theme-toggle">
+            <i data-lucide="moon" id="moon-icon" class="hidden"></i>
+            <i data-lucide="sun" id="sun-icon"></i>
+          </button>
+          <button class="btn-preview">
+            <i data-lucide="eye"></i>
+            <span>View Mode</span>
+          </button>
+          <div class="user-profile" id="user-profile">
+            <div class="avatar">
+              <i data-lucide="user"></i>
+            </div>
+            <!-- Profile Dropdown -->
+            <div class="profile-dropdown" id="profile-dropdown">
+              <div class="profile-dropdown-header">
+                <div class="profile-info">
+                  <h4 id="dropdown-name">User</h4>
+                  <p id="dropdown-email">user@example.com</p>
+                </div>
+                <div class="profile-completion">
+                  <div class="completion-circle">
+                    <span id="completion-text">0%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-dropdown-body">
+                <div class="form-group">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" id="dropdown-full-name" class="form-input-small" placeholder="Your full name" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" id="dropdown-email-input" class="form-input-small" placeholder="your@email.com" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phone Number</label>
+                  <input type="tel" id="dropdown-phone" class="form-input-small" placeholder="+91 98765 43210" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Department</label>
+                  <input type="text" id="dropdown-department" class="form-input-small" placeholder="e.g. Computer Science" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Bio</label>
+                  <textarea id="dropdown-bio" class="form-textarea-small" rows="3" placeholder="Write a short bio about yourself..."></textarea>
+                </div>
+                <button class="btn-save-profile" id="save-profile-btn">
+                  <i data-lucide="check"></i>
+                  Save Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content">
+
+      <!-- Success Notification -->
+      <div id="success-notification" class="notification success hidden">
+        <i data-lucide="check-circle"></i>
+        <div>
+          <strong>Success!</strong>
+          <p>Your changes have been saved successfully</p>
+        </div>
+        <button class="notification-close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Error Notification -->
+      <div id="error-notification" class="notification error hidden">
+        <i data-lucide="alert-circle"></i>
+        <div>
+          <strong>Error!</strong>
+          <p id="error-message">Something went wrong. Please try again.</p>
+        </div>
+        <button class="notification-close-err">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Social Links Section -->
+      <section id="links" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Social & Professional Links</h2>
+            <p class="section-description">Connect your professional profiles</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="link-grid">
+            <div class="link-item">
+              <div class="link-icon github">
+                <i data-lucide="github"></i>
+              </div>
+              <div class="link-content">
+                <label class="form-label">GitHub Profile</label>
+                <input type="url" id="github-link" class="form-input" placeholder="https://github.com/username" />
+              </div>
+            </div>
+            <div class="link-item">
+              <div class="link-icon linkedin">
+                <i data-lucide="linkedin"></i>
+              </div>
+              <div class="link-content">
+                <label class="form-label">LinkedIn Profile</label>
+                <input type="url" id="linkedin-link" class="form-input" placeholder="https://linkedin.com/in/username" />
+              </div>
+            </div>
+            <div class="link-item">
+              <div class="link-icon leetcode">
+                <i data-lucide="code"></i>
+              </div>
+              <div class="link-content">
+                <label class="form-label">LeetCode Profile</label>
+                <input type="url" id="leetcode-link" class="form-input" placeholder="https://leetcode.com/username" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section id="education" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Education Details</h2>
+            <p class="section-description">Your academic background and qualifications</p>
+          </div>
+        </div>
+
+        <!-- Schooling Card -->
+        <div class="card edu-card">
+          <div class="edu-card-header">
+            <div class="edu-badge school-badge">
+              <i data-lucide="book-open"></i>
+            </div>
+            <div>
+              <h3 class="edu-card-title">School Education</h3>
+              <p class="edu-card-subtitle">Secondary & Higher Secondary details</p>
+            </div>
+          </div>
+
+          <div class="edu-divider"></div>
+
+          <!-- 10th Grade -->
+          <div class="edu-level">
+            <span class="edu-level-tag">10th Grade</span>
+            <div class="edu-fields">
+              <div class="form-group">
+                <label class="form-label">School Name</label>
+                <input type="text" id="school-10-name" class="form-input" placeholder="e.g. St. Joseph's High School" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Board</label>
+                <input type="text" id="school-10-board" class="form-input" placeholder="e.g. CBSE, State Board, ICSE" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Year of Passing</label>
+                <input type="text" id="school-10-year" class="form-input" placeholder="e.g. 2020" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Grade / Percentage / CGPA</label>
+                <input type="text" id="school-10-grade" class="form-input" placeholder="e.g. 92% or 9.4 CGPA" />
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-divider"></div>
+
+          <!-- 12th Grade -->
+          <div class="edu-level">
+            <span class="edu-level-tag">12th Grade</span>
+            <div class="edu-fields">
+              <div class="form-group">
+                <label class="form-label">School Name</label>
+                <input type="text" id="school-12-name" class="form-input" placeholder="e.g. St. Joseph's Higher Secondary" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Board</label>
+                <input type="text" id="school-12-board" class="form-input" placeholder="e.g. CBSE, State Board, ICSE" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Stream</label>
+                <input type="text" id="school-12-stream" class="form-input" placeholder="e.g. Science, Commerce, Arts" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Year of Passing</label>
+                <input type="text" id="school-12-year" class="form-input" placeholder="e.g. 2022" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Grade / Percentage / CGPA</label>
+                <input type="text" id="school-12-grade" class="form-input" placeholder="e.g. 88% or 8.9 CGPA" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- College Card -->
+        <div class="card edu-card" style="margin-top: 1.5rem;">
+          <div class="edu-card-header">
+            <div class="edu-badge college-badge">
+              <i data-lucide="university"></i>
+            </div>
+            <div>
+              <h3 class="edu-card-title">College / University</h3>
+              <p class="edu-card-subtitle">Undergraduate & Postgraduate details</p>
+            </div>
+          </div>
+
+          <div class="edu-divider"></div>
+
+          <!-- UG -->
+          <div class="edu-level">
+            <span class="edu-level-tag college-tag">Undergraduate (UG)</span>
+            <div class="edu-fields">
+              <div class="form-group">
+                <label class="form-label">College / University Name</label>
+                <input type="text" id="ug-college-name" class="form-input" placeholder="e.g. Anna University" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Degree</label>
+                <input type="text" id="ug-degree" class="form-input" placeholder="e.g. B.E, B.Tech, B.Sc" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Branch / Specialization</label>
+                <input type="text" id="ug-branch" class="form-input" placeholder="e.g. Computer Science & Engineering" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Start Year</label>
+                <input type="text" id="ug-start-year" class="form-input" placeholder="e.g. 2022" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">End Year / Expected</label>
+                <input type="text" id="ug-end-year" class="form-input" placeholder="e.g. 2026 or Pursuing" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">CGPA / Percentage</label>
+                <input type="text" id="ug-grade" class="form-input" placeholder="e.g. 8.5 CGPA or 85%" />
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-divider"></div>
+
+          <!-- PG (optional) -->
+          <div class="edu-level">
+            <div class="edu-level-row">
+              <span class="edu-level-tag college-tag">Postgraduate (PG)</span>
+              <span class="edu-optional-badge">Optional</span>
+            </div>
+            <div class="edu-fields">
+              <div class="form-group">
+                <label class="form-label">College / University Name</label>
+                <input type="text" id="pg-college-name" class="form-input" placeholder="e.g. IIT Madras" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Degree</label>
+                <input type="text" id="pg-degree" class="form-input" placeholder="e.g. M.E, M.Tech, M.Sc, MBA" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Branch / Specialization</label>
+                <input type="text" id="pg-branch" class="form-input" placeholder="e.g. Data Science" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Start Year</label>
+                <input type="text" id="pg-start-year" class="form-input" placeholder="e.g. 2026" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">End Year / Expected</label>
+                <input type="text" id="pg-end-year" class="form-input" placeholder="e.g. 2028 or Pursuing" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">CGPA / Percentage</label>
+                <input type="text" id="pg-grade" class="form-input" placeholder="e.g. 9.0 CGPA" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Project Portfolio</h2>
+            <p class="section-description">Showcase your best work</p>
+          </div>
+          <button class="btn-add" id="add-project-btn">
+            <i data-lucide="plus"></i>
+            Add Project
+          </button>
+        </div>
+        <div id="projects-container" class="projects-grid">
+          <!-- Projects rendered dynamically -->
+        </div>
+      </section>
+
+      <!-- Resumes Section -->
+      <section id="resumes" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Resume Management</h2>
+            <p class="section-description">Upload and manage your resumes</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="upload-area" id="resume-upload-area">
+            <i data-lucide="upload" class="upload-icon"></i>
+            <h3>Upload Resume</h3>
+            <p>Drag and drop or click to browse</p>
+            <p class="upload-hint">Supports: PDF, DOC, DOCX (Max 5MB)</p>
+            <input type="file" id="resume-input" class="file-input" accept=".pdf,.doc,.docx" multiple />
+          </div>
+          <div id="resume-list" class="file-grid"></div>
+        </div>
+      </section>
+
+      <!-- Certificates Section -->
+      <section id="certificates" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Certificates & Achievements</h2>
+            <p class="section-description">Upload your certificates and credentials</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="upload-area" id="certificate-upload-area">
+            <i data-lucide="upload" class="upload-icon"></i>
+            <h3>Upload Certificate</h3>
+            <p>Drag and drop or click to browse</p>
+            <p class="upload-hint">Supports: PDF, JPG, PNG (Max 5MB)</p>
+            <input type="file" id="certificate-input" class="file-input" accept=".pdf,.jpg,.jpeg,.png" multiple />
+          </div>
+          <div id="certificate-list" class="file-grid"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Save Button Fixed at Bottom -->
+    <div class="save-bar">
+      <button class="btn-save" id="save-all-btn">
+        <i data-lucide="save"></i>
+        Save All Changes
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Project Modal -->
+  <div class="modal-overlay hidden" id="project-modal-overlay">
+    <div class="modal" id="project-modal">
+      <div class="modal-header">
+        <h3>Add New Project</h3>
+        <button class="modal-close" id="modal-close-btn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Project Title</label>
+          <input type="text" id="proj-title" class="form-input" placeholder="e.g. E-Commerce Website" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea id="proj-desc" class="form-textarea" rows="3" placeholder="Brief description of the project..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tech Stack</label>
+          <input type="text" id="proj-tech" class="form-input" placeholder="e.g. React, Node.js, MongoDB" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">GitHub Link</label>
+          <input type="url" id="proj-github" class="form-input" placeholder="https://github.com/..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Live Demo Link</label>
+          <input type="url" id="proj-demo" class="form-input" placeholder="https://yourproject.com" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" id="modal-cancel-btn">Cancel</button>
+        <button class="btn-add" id="modal-save-btn">
+          <i data-lucide="plus"></i>
+          Add Project
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

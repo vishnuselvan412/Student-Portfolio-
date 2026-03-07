@@ -1,0 +1,142 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(150deg, #000000 0%, #9b58de 100%);
+      min-height: 100vh;
+      color: rgba(209, 225, 164, 0.786);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .welcome-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #121d30 0%, #39247f 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      animation: fadeOut 1.2s forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .welcome-text {
+      font-size: 60px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: -1px;
+      color: rgba(209, 225, 164, 0.786);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      animation: slideUp 2s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+      0% {
+        transform: translateY(180px);
+        opacity: 0;
+      }
+      60% {
+        transform: translateY(30px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .loader {
+    position:absolute;
+    bottom: 80px;
+    width: 60px;
+    height: 60px;
+    border: 6px dotted rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+    @keyframes spin{
+      to{
+        transform: rotate(360deg);
+      }
+    }
+
+    .main-content {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInContent 1.2s ease-out forwards;
+      animation-delay: 2s;
+      text-align: center;
+    }
+
+    @keyframes fadeInContent {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+    }
+
+    p.subtitle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 2.4rem;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 36px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+
+    .btn-google {
+      gap: 5px;
+      background: white;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .btn-google:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 35px rgba(241, 209, 209, 0.3);
+      background: #e5e7ea;
+    }
+
+    .google-icon {
+      width: 24px;
+      height: 24px;
+    }
