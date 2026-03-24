@@ -12,15 +12,10 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo">
-        <div class="logo-icon">
-          <i data-lucide="graduation-cap"></i>
-        </div>
-        <div class="logo-text">
-          <h2>PORTIFY</h2>
-          <p>Portfolio Hub</p>
-        </div>
+        <div class="logo-mark">✦</div>
+        <span class="logo-wordmark">PORTIFY</span>
       </div>
-      <button class="sidebar-close" id="sidebar-close">
+      <button class="sidebar-close" id="sidebar-close" style="display:none;">
         <i data-lucide="x"></i>
       </button>
     </div>
@@ -37,6 +32,10 @@
       <a href="#projects" class="nav-item">
         <i data-lucide="folder"></i>
         <span>Projects</span>
+      </a>
+      <a href="#skills" class="nav-item">
+        <i data-lucide="zap"></i>
+        <span>Skills</span>
       </a>
       <a href="#resumes" class="nav-item">
         <i data-lucide="file-text"></i>
@@ -71,6 +70,9 @@
         </div>
 
         <div class="header-actions">
+          <button class="btn-icon" id="copy-link-btn" title="Copy portfolio link">
+            <i data-lucide="link"></i>
+          </button>
           <button class="btn-icon" id="theme-toggle">
             <i data-lucide="moon" id="moon-icon" class="hidden"></i>
             <i data-lucide="sun" id="sun-icon"></i>
@@ -80,15 +82,26 @@
             <span>View Mode</span>
           </button>
           <div class="user-profile" id="user-profile">
-            <div class="avatar">
-              <i data-lucide="user"></i>
+            <div class="avatar" id="avatar-btn">
+              <img id="avatar-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+              <i data-lucide="user" id="avatar-icon"></i>
             </div>
             <!-- Profile Dropdown -->
             <div class="profile-dropdown" id="profile-dropdown">
               <div class="profile-dropdown-header">
+                <div class="profile-photo-wrap">
+                  <div class="profile-photo-preview" id="profile-photo-preview">
+                    <img id="profile-photo-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+                    <i data-lucide="user" id="profile-photo-icon"></i>
+                  </div>
+                  <button class="profile-photo-change" id="profile-photo-change-btn" title="Change photo">
+                    <i data-lucide="camera"></i>
+                  </button>
+                  <input type="file" id="profile-photo-input" accept="image/*" style="display:none;" />
+                </div>
                 <div class="profile-info">
                   <h4 id="dropdown-name">User</h4>
-                  <p id="dropdown-email">user@example.com</p>
+                  <p id="dropdown-email">user@email.com</p>
                 </div>
                 <div class="profile-completion">
                   <div class="completion-circle">
@@ -131,29 +144,7 @@
     <!-- Content Area -->
     <main class="content">
 
-      <!-- Success Notification -->
-      <div id="success-notification" class="notification success hidden">
-        <i data-lucide="check-circle"></i>
-        <div>
-          <strong>Success!</strong>
-          <p>Your changes have been saved successfully</p>
-        </div>
-        <button class="notification-close">
-          <i data-lucide="x"></i>
-        </button>
-      </div>
-
-      <!-- Error Notification -->
-      <div id="error-notification" class="notification error hidden">
-        <i data-lucide="alert-circle"></i>
-        <div>
-          <strong>Error!</strong>
-          <p id="error-message">Something went wrong. Please try again.</p>
-        </div>
-        <button class="notification-close-err">
-          <i data-lucide="x"></i>
-        </button>
-      </div>
+      <!-- Notifications (single set) -->
 
       <!-- Social Links Section -->
       <section id="links" class="section">
@@ -372,6 +363,25 @@
         </div>
       </section>
 
+      <!-- Skills Section -->
+      <section id="skills" class="section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Skills & Technologies</h2>
+            <p class="section-description">Add tags for your technical and soft skills</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="skills-input-row">
+            <input type="text" id="skill-input" class="form-input" placeholder="e.g. React, Python, Figma — press Enter or comma to add" />
+            <button class="btn-add" id="add-skill-btn">
+              <i data-lucide="plus"></i> Add
+            </button>
+          </div>
+          <div id="skills-tags" class="skills-tags-container"></div>
+        </div>
+      </section>
+
       <!-- Resumes Section -->
       <section id="resumes" class="section">
         <div class="section-header">
@@ -427,7 +437,7 @@
   <div class="modal-overlay hidden" id="project-modal-overlay">
     <div class="modal" id="project-modal">
       <div class="modal-header">
-        <h3>Add New Project</h3>
+        <h3 id="project-modal-title">Add New Project</h3>
         <button class="modal-close" id="modal-close-btn">
           <i data-lucide="x"></i>
         </button>
@@ -464,6 +474,43 @@
     </div>
   </div>
 
+  <!-- Success Notification -->
+  <div id="success-notification" class="notification success-notification hidden">
+    <div class="notification-content">
+      <i data-lucide="check-circle"></i>
+      <p></p>
+    </div>
+    <button class="notification-close"><i data-lucide="x"></i></button>
+  </div>
+
+  <!-- Error Notification -->
+  <div id="error-notification" class="notification error-notification hidden">
+    <div class="notification-content">
+      <i data-lucide="alert-circle"></i>
+      <p id="error-message"></p>
+    </div>
+    <button class="notification-close-err"><i data-lucide="x"></i></button>
+  </div>
+
+  <!-- Confirm Modal (replaces native confirm()) -->
+  <div class="modal-overlay hidden" id="confirm-modal-overlay">
+    <div class="modal" id="confirm-modal" style="max-width:380px;">
+      <div class="modal-header">
+        <h3 id="confirm-modal-title">Confirm</h3>
+        <button class="modal-close" id="confirm-modal-close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-modal-message" style="color:var(--gray-600);font-size:0.9375rem;"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" id="confirm-modal-cancel">Cancel</button>
+        <button class="btn-add" id="confirm-modal-ok" style="background:var(--danger);">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script type="module" src="main.js"></script>
 </body>
 </html>
