@@ -64,22 +64,28 @@ body.dark .sidebar { background: var(--gray-800); border-right-color: var(--gray
 
 body.dark .sidebar-header { border-bottom-color: var(--gray-700); }
 
-.sidebar-logo { display: flex; align-items: center; gap: 0.75rem; }
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border-radius: 10px;
+.sidebar-logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: white;
+  gap: 0.5rem;
 }
 
-.logo-text h2 { font-size: 1.25rem; font-weight: 700; color: var(--gray-900); }
-body.dark .logo-text h2 { color: white; }
-.logo-text p { font-size: 0.75rem; color: var(--gray-500); }
+.logo-mark {
+  font-size: 1.1rem;
+  color: var(--primary);
+  filter: drop-shadow(0 0 8px rgba(99,102,241,0.7));
+  line-height: 1;
+}
+
+.logo-wordmark {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gray-900);
+}
+
+body.dark .logo-wordmark { color: #f5f3ff; }
 
 .sidebar-close {
   display: none;
@@ -258,10 +264,9 @@ body.dark .profile-dropdown {
 }
 
 .profile-dropdown-header {
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--gray-200);
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 1rem;
 }
@@ -747,18 +752,64 @@ body.dark .upload-area:hover, body.dark .upload-area.drag-over { background: rgb
 .file-name { font-size: 0.875rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .file-meta { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.125rem; }
 
+.file-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.file-view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 0.375rem;
+  color: var(--primary);
+  background: rgba(59,130,246,0.1);
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.file-view-btn:hover { background: rgba(59,130,246,0.2); }
+
 .file-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
   background: none;
   border: none;
   color: var(--gray-400);
   cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   transition: all 0.2s;
-  flex-shrink: 0;
 }
 
 .file-delete-btn:hover { color: var(--danger); background: #fee2e2; }
+
+/* Upload progress */
+.upload-progress {
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: 999px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+body.dark .upload-progress { background: var(--gray-600); }
+
+.upload-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 999px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.file-item.uploading { opacity: 0.8; }
 
 /* ── Save Bar ──────────────────────────────────────────────── */
 .save-bar {
@@ -930,53 +981,244 @@ body.dark .content::-webkit-scrollbar-thumb { background: var(--gray-600); }
   }
 }
 
-/* ── File Actions & Progress ───────────────────────────────── */
-.file-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  flex-shrink: 0;
-}
-
-.file-view-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: rgba(59,130,246,0.1);
-  border-radius: 0.375rem;
-  color: var(--primary);
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.file-view-btn:hover { background: rgba(59,130,246,0.2); }
-
-.progress-bar {
-  width: 100%;
-  height: 6px;
-  background: var(--gray-200);
-  border-radius: 999px;
-  margin-top: 0.5rem;
-  overflow: hidden;
-}
-
-body.dark .progress-bar { background: var(--gray-600); }
-
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  border-radius: 999px;
-  width: 0%;
-  transition: width 0.3s ease;
-}
-
-.progress-text {
+/* ── Upload Progress Card ──────────────────────────────────── */
+.upload-pct {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--primary);
-  flex-shrink: 0;
   min-width: 36px;
   text-align: right;
+  flex-shrink: 0;
+}
+
+.uploading-spin i {
+  animation: spin-icon 1s linear infinite;
+  display: block;
+}
+
+@keyframes spin-icon {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.upload-cancel-btn:hover {
+  color: var(--danger) !important;
+  background: #fee2e2 !important;
+}
+
+
+/* ── Profile Photo Upload ──────────────────────────────────── */
+.profile-photo-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-photo-preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  border: 2px solid var(--gray-200);
+}
+
+body.dark .profile-photo-preview { border-color: var(--gray-600); }
+
+.profile-photo-change {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid white;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+body.dark .profile-photo-change { border-color: var(--gray-800); }
+.profile-photo-change:hover { background: var(--primary-dark); transform: scale(1.1); }
+.profile-photo-change i { width: 11px; height: 11px; }
+
+/* ── Skills Tags ───────────────────────────────────────────── */
+.skills-input-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.skills-input-row .form-input { flex: 1; }
+
+.skills-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 2rem;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.35rem 0.75rem 0.35rem 0.9rem;
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--primary);
+  transition: all 0.2s;
+}
+
+body.dark .skill-tag {
+  background: rgba(59,130,246,0.15);
+  border-color: rgba(59,130,246,0.3);
+  color: #93c5fd;
+}
+
+.skill-tag:hover {
+  background: rgba(239,68,68,0.08);
+  border-color: rgba(239,68,68,0.25);
+  color: var(--danger);
+}
+
+.skill-tag-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.skill-tag-remove:hover { opacity: 1; }
+.skill-tag-remove i { width: 12px; height: 12px; }
+
+.skills-empty {
+  font-size: 0.8125rem;
+  color: var(--gray-400);
+  font-style: italic;
+}
+
+/* ── Confirm Modal ─────────────────────────────────────────── */
+#confirm-modal-ok {
+  background: var(--danger) !important;
+}
+#confirm-modal-ok:hover {
+  background: #dc2626 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+}
+
+/* ── Copy Link Button tooltip ──────────────────────────────── */
+#copy-link-btn { position: relative; }
+
+/* ── Project edit button ───────────────────────────────────── */
+.project-edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  color: var(--gray-400);
+  cursor: pointer;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+}
+
+.project-edit-btn:hover { color: var(--primary); background: rgba(59,130,246,0.1); }
+
+/* ── Unsaved changes indicator ─────────────────────────────── */
+.save-bar.has-changes .btn-save {
+  animation: savePulse 2s ease-in-out infinite;
+}
+
+@keyframes savePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+}
+
+/* ── Notification as toast (bottom fixed) ──────────────────── */
+.success-notification,
+.error-notification {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  z-index: 9999;
+  min-width: 280px;
+  max-width: 420px;
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.success-notification:not(.hidden),
+.error-notification:not(.hidden) {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.success-notification { background: var(--success); color: white; }
+.error-notification { background: var(--danger); color: white; }
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.notification-close,
+.notification-close-err {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  padding: 0.375rem;
+  border-radius: 0.375rem;
+  color: white;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Link validation error ─────────────────────────────────── */
+.form-input.input-error {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+}
+
+.input-error-msg {
+  font-size: 0.75rem;
+  color: var(--danger);
+  margin-top: 0.25rem;
 }
